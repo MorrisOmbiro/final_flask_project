@@ -1,0 +1,7 @@
+pip install flask
+pip list 
+set FLASK_ENV=development
+flask run
+
+- set debug mode on: 
+set FLASK_DEBUG=1

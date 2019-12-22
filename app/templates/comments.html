@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+{{ super() }}
+<div class="row bootstrap snippets">
+    <div class="col-md-12 col-md-offset-0 col-sm-12">
+        <div name="post_id" class="comment_card col-md-12 col-md-offset-0 col-sm-12">
+            <div class="row bg-white has-shadow" style="width: 100rem;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <a href="{{post.content}}"><img src="https://api.miniature.io/?url={{ post.content }}" width="80px" height="80px"/></a>
+                        <div class="vote">
+                            <a  href="#" title="Upvote">    <i class="upvote glyphicon glyphicon-arrow-up"> </i></a>
+                            <a  href="#" title="Downvote">    <i class="downvote glyphicon glyphicon-arrow-down"> </i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="{{ post.content }}">{{post.title}}</a></h5>
+                            <p class="card-text"><small class="text-muted">{{post.date_posted}}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        <div class="comment-wrapper">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <form action="" method="POST">
+                        {{ form.hidden_tag() }}
+                        {{form.comment(class='form-control', placeholder='Write a comment', rows='3')}}
+                        <br>
+                        {{ form.submit(class='btn btn-info pull-right') }}
+                    </form>
+                    <div class="clearfix"></div>
+                    <hr>
+                    <ul class="media-list">
+                        {% for comment in users_comments %}
+                        {% if comment[0].id == post_id %}
+                        <li class="media">
+                            <a href="#" class="pull-left">
+                                <img src="https://pbs.twimg.com/media/EJJ9ecLUcAA44pd.png" alt="" class="img-circle">
+                            </a>
+                            <div class="media-body">
+                                <span class="text-muted pull-right">
+                                    <small class="text-muted">{{ comment[1].date_posted}}</small>
+                                </span>
+                                <a href="/profile/{{comment[2].id}}" ><strong name="user_id" class="text-success">@{{ comment[2].username}}</strong></a>
+                                <p>
+                                    {{ comment[1].message }}
+                                </p>
+                            </div>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

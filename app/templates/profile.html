@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+
+<div class="row" style="width: 100rem;">
+    <div class="col-md-12 col-md-offset-0 col-sm-12">
+        <div class="panel panel-default plain profile-panel">
+            <div class="panel-heading white-content p-left p-right">
+
+            </div>
+            <div class="panel_profile panel-body">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="profile-avatar">
+                        <img class="img-responsive"  src="https://pbs.twimg.com/media/EJJ9ecLUcAA44pd.png" alt="profile picture" class="img-circle">
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-12">
+                    <div class="user-name">
+                        <p class="profile_name">@{{user.username}}</p> 
+                    </div>
+                    <div class="user-information">
+                        <p class="profile_tag">This is a no-reddit user</p>
+                    </div>
+                    <div class="profile-stats-info">
+                        <a href="#" title="Likes">    <i class="glyphicon glyphicon-arrow-up" style="font-size: 40px;"> </i> <strong class="upvote_count">60</strong></a>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/profile/{{user_id}}">Posts</a>
+                </li>
+            </ul>
+            <!--User specific posts -->
+            {% for post in posts %}
+            {% if user_id == post.user_id %}
+            <div class="feed_card_profile" class="row bg-white has-shadow">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <a href="{{post.content}}"><img src="https://api.miniature.io/?url={{ post.content }}" width="80px" height="80px"/></a>
+                        <div class="vote">
+                            <a  href="#" title="Upvote">    <i class="upvote glyphicon glyphicon-arrow-up"> </i></a>
+                            <a  href="#" title="Downvote">    <i class="downvote glyphicon glyphicon-arrow-down"> </i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="{{post.content}}">{{post.title}}</a></h5>
+                            <a href="/comments/{{post.id}}" class="pull-right" title="Comments"> <i class="glyphicon glyphicon-comment"></i> <strong>Comments</strong></a>
+                            <p class="card-text"><small class="text-muted">{{ post.date_posted}}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

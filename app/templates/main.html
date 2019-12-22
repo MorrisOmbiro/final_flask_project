@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+<!-- Feed -->
+{% for post in posts %}
+<div  class="feed_card row bg-white has-shadow"
+      style="width: 100rem;" post_id="{{ post.id }}">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <a href="{{post.content}}"><img src="https://api.miniature.io/?url={{ post.content }}" width="80px" height="80px"/></a>
+	    {% if post.get_vote() is none %}
+            <div class="vote">
+                <i class="upvote glyphicon glyphicon-arrow-up"> </i>
+                <i class="downvote glyphicon glyphicon-arrow-down"> </i>
+            </div>
+	    {% elif post.get_vote() %}
+            <div class="vote">
+                <i class="upvote glyphicon glyphicon-arrow-up" color="green"> </i>
+                <i class="downvote glyphicon glyphicon-arrow-down"> </i>
+            </div>
+	    {% else %}
+            <div class="vote">
+                <i class="upvote glyphicon glyphicon-arrow-up"> </i>
+                <i class="downvote glyphicon glyphicon-arrow-down" color="red"> </i>
+            </div>
+	    {% endif %}
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title"><a href="{{post.content}}">{{post.title}}</a></h5>
+                <a href="/comments/{{post.id}}" class="pull-right" title="Comments"> <i class="glyphicon glyphicon-comment"></i> <strong>Comments</strong></a>
+                <p class="card-text"><small class="text-muted">{{post.date_posted}}</small></p>
+                <a href="/profile/{{post.user_id}}"><p class="card-text"><strong class="main_username text-muted">@{{ user.query.get(post.user_id).username }}</strong></p></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<script src="/static/votes.js"></script>
+
+{% endblock %}

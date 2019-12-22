@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+{{ super() }}
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-md-12 col-md-offset-0 col-xs-12">
+            <div class="well well-sm well-social-post">
+                <form action="/post" method="post">
+                    <ul class="list-inline" id='list_PostActions'>
+                        <li class='active'><a href='#'>Post Image</a></li>
+                    </ul>
+                    {{ form.hidden_tag() }}
+                    {{form.img_url(class='form-control', placeholder='Paste a URL')}}
+                    {{form.title(class='form-control', placeholder='Insert Title')}}
+                    <ul class='list-inline post-actions'>
+                        <li><p><em>Not Reddit</em></p></li>
+                        <li class='pull-right'>
+                            {{ form.submit(class='btn btn-primary btn-lrg') }}
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>   
+
+{% endblock %}
